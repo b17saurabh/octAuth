@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "jXpqY3My2jDmz0XmmLkOO8QWnFRqppazBFx6bAQ4RlY=",
+  "Source": "ScorecardMgm.Auth",
+  "BasePath": "_content/ScorecardMgm.Auth",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

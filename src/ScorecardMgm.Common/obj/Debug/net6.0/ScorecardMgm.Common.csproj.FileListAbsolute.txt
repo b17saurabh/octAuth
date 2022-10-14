@@ -1,0 +1,12 @@
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\obj\Debug\net6.0\ScorecardMgm.Common.csproj.AssemblyReference.cache
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\obj\Debug\net6.0\ScorecardMgm.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\obj\Debug\net6.0\ScorecardMgm.Common.AssemblyInfoInputs.cache
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\obj\Debug\net6.0\ScorecardMgm.Common.AssemblyInfo.cs
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\obj\Debug\net6.0\ScorecardMgm.Common.csproj.CoreCompileInputs.cache
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\bin\Debug\net6.0\ScorecardMgm.Common.deps.json
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\bin\Debug\net6.0\ScorecardMgm.Common.dll
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\bin\Debug\net6.0\ScorecardMgm.Common.pdb
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\obj\Debug\net6.0\ScorecardMgm.Common.dll
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\obj\Debug\net6.0\refint\ScorecardMgm.Common.dll
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\obj\Debug\net6.0\ScorecardMgm.Common.pdb
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Common\obj\Debug\net6.0\ref\ScorecardMgm.Common.dll
