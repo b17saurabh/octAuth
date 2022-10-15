@@ -4,7 +4,7 @@ namespace ScorecardMgm.Common.Repositories.Interfaces
 {
     public interface IOverRepository
     {
-        Task<List<Over>> GetAllOversFromAMatch(OverFilter overFilter);
+        Task<List<Over>> GetAllOvers(OverFilter overFilter);
         Task<Over> GetOver(string overId);
         Task AddOver(Over over);
         Task UpdateOver(Over over);

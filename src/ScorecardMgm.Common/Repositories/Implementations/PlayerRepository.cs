@@ -16,9 +16,14 @@ namespace ScorecardMgm.Common.Repositories.Implementations
 
         public async Task AddPlayer(Player player)
         {
-            if (player == null)
+            // if (player == null)
+            // {
+            //     throw new ArgumentNullException(nameof(player) + " is null");
+            // }
+            var team = await _context.Teams.FindAsync(player.TeamId);
+            if (team == null)
             {
-                throw new ArgumentNullException(nameof(player) + " is null");
+                throw new KeyNotFoundException("Team not found");
             }
 
             await _context.Players.AddAsync(player);
@@ -58,25 +63,24 @@ namespace ScorecardMgm.Common.Repositories.Implementations
 
         public async Task<Player> GetPlayer(string playerId)
         {
-            if (!PlayerExists(playerId))
+            var player = await _context.Players.FindAsync(playerId);
+            if (player == null)
             {
                 throw new ArgumentException(nameof(playerId) + " player doesn't exist");
             }
-            var player = await _context.Players.FindAsync(playerId);
             return player;
         }
 
         public async Task UpdatePlayer(Player player)
         {
-            if (player == null)
+            var playerFromDB = await _context.Players.FindAsync(player.PlayerId);
+            if (player == null || playerFromDB == null)
             {
-                throw new ArgumentNullException(nameof(player) + " is null");
+                throw new ArgumentException(nameof(player) + " player doesn't exist");
             }
-            if (!PlayerExists(player.PlayerId))
-            {
-                throw new ArgumentException(nameof(player.PlayerId) + " player doesn't exist");
-            }
-            _context.Players.Update(player);
+            player.TeamId = playerFromDB.TeamId;
+            // _context.Players.Update(player);
+            _context.Entry(playerFromDB).CurrentValues.SetValues(player);
             await _context.SaveChangesAsync();
         }
 

@@ -18,10 +18,10 @@ namespace ScorecardMgm.Common.Repositories.Implementations
         {
             try
             {
-                if (match == null)
-                {
-                    throw new ArgumentNullException(nameof(match) + " is null");
-                }
+                // if (match == null)
+                // {
+                //     throw new ArgumentNullException(nameof(match) + " is null");
+                // }
 
                 await _context.Matches.AddAsync(match);
                 await _context.SaveChangesAsync();
@@ -34,11 +34,15 @@ namespace ScorecardMgm.Common.Repositories.Implementations
 
         public async Task DeleteMatch(string matchId)
         {
-            if (!MatchExists(matchId))
-            {
-                throw new ArgumentException(nameof(matchId) + " must be greater than 0");
-            }
+            // if (!MatchExists(matchId))
+            // {
+            //     throw new ArgumentException(nameof(matchId) + " must be greater than 0");
+            // }
             var match = await _context.Matches.FindAsync(matchId);
+            if (match == null)
+            {
+                throw new Exception("Match not found");
+            }
             _context.Matches.Remove(match);
             await _context.SaveChangesAsync();
         }
@@ -65,19 +69,27 @@ namespace ScorecardMgm.Common.Repositories.Implementations
 
         public async Task<Match> GetMatch(string matchId)
         {
-            // try
-            // {
-            if (!MatchExists(matchId))
+            try
             {
-                throw new ArgumentException(nameof(matchId) + " match does not exist");
+                // if (!MatchExists(matchId))
+                // {
+                //     throw new ArgumentException(nameof(matchId) + " match does not exist");
+                // }
+                var match = await _context.Matches.FindAsync(matchId);
+                if (match == null)
+                {
+                    throw new Exception("Match not found");
+                }
+                else
+                {
+                    return match;
+                }
             }
-            var match = await _context.Matches.FindAsync(matchId);
-            return match;
-            // }
-            // catch 
-            // { 
-            //     throw new ArgumentException(nameof(matchId) + " not found"); 
-            // }
+            catch (Exception e)
+            {
+                throw new ArgumentException(nameof(matchId) + " not found" + e.Message);
+            }
+
         }
 
         public async Task UpdateMatch(Match _match)
@@ -85,6 +97,7 @@ namespace ScorecardMgm.Common.Repositories.Implementations
             if (MatchExists(_match.MatchId))
             {
                 var match = await _context.Matches.FindAsync(_match.MatchId);
+                _match.TournamentId = match.TournamentId;
                 _context.Entry(match).CurrentValues.SetValues(_match);
                 await _context.SaveChangesAsync();
             }

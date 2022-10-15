@@ -8,7 +8,7 @@ public interface IPlayerService
 {
     Task<List<Player>> GetAllPlayersAsync(PlayerFilter playerFilter);
     Task<Player> GetPlayerAsync(string playerId);
-    Task AddPlayerAsync(Player player);
+    Task<Player> AddPlayerAsync(Player player);
     Task UpdatePlayerAsync(Player player);
     Task DeletePlayerAsync(string playerId);
 }

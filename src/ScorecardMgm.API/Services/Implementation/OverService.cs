@@ -21,62 +21,61 @@ public class OverService : IOverService
         _mapper = mapper;
     }
 
-    public Task<Over> AddOverAsync(string tournamentId, string matchId, Over over)
+    public async Task<Over> AddOverAsync(string matchId, Over over)
     {
-        var tournament = _tournamentRepository.GetTournament(tournamentId);
-        if (tournament == null)
-        {
-            throw new Exception("Tournament not found");
-        }
+        // var tournament = await _tournamentRepository.GetTournament(tournamentId);
+        // if (tournament == null)
+        // {
+        //     throw new Exception("Tournament not found");
+        // }
 
-        var match = _matchRepository.GetMatch(matchId);
+        over.MatchId = matchId;
+        var match = await _matchRepository.GetMatch(over.MatchId);
         if (match == null)
         {
             throw new Exception("Match not found");
         }
+        over.OverId = Guid.NewGuid().ToString();
+        await _overRepository.AddOver(_mapper.Map<ScorecardMgm.Common.Entities.Over>(over));
 
-        _overRepository.AddOver(_mapper.Map<ScorecardMgm.Common.Entities.Over>(over));
-
-        return Task.FromResult(over);
+        return over;
     }
 
-    public Task<Over> DeleteOverAsync(string overId)
+    public async Task DeleteOverAsync(string overId)
     {
-        var over = _overRepository.GetOver(overId);
+
+        await _overRepository.DeleteOver(overId);
+        // return _mapper.Map<Over>(_mapper.Map<ScorecardMgm.Common.Entities.Over>(over));
+    }
+
+    public async Task<List<Over>> GetAllOversAsync(OverFilter overFilter)
+    {
+        // _overRepository.GetAllOversFromAMatch(_mapper.Map<ScorecardMgm.Common.Filters.OverFilter>(overFilter));
+        return _mapper.Map<List<Over>>(await _overRepository.GetAllOvers(_mapper.Map<ScorecardMgm.Common.Filters.OverFilter>(overFilter)));
+    }
+
+    public async Task<Over> GetOverAsync(string overId)
+    {
+        var over = await _overRepository.GetOver(overId);
         if (over == null)
         {
             throw new Exception("Over not found");
         }
-        _overRepository.DeleteOver(overId);
-        return Task.FromResult(_mapper.Map<Over>(over));
+        return _mapper.Map<Over>(_mapper.Map<ScorecardMgm.Common.Entities.Over>(over));
     }
 
-    public Task<List<Over>> GetAllOversAsync(OverFilter overFilter)
-    {
-        _overRepository.GetAllOversFromAMatch(_mapper.Map<ScorecardMgm.Common.Filters.OverFilter>(overFilter));
-        return Task.FromResult(_mapper.Map<List<Over>>(_overRepository.GetAllOversFromAMatch(_mapper.Map<ScorecardMgm.Common.Filters.OverFilter>(overFilter))));
-    }
-
-    public Task<Over> GetOverAsync(string overId)
-    {
-        var over = _overRepository.GetOver(overId);
-        if (over == null)
-        {
-            throw new Exception("Over not found");
-        }
-        return Task.FromResult(_mapper.Map<Over>(over));
-    }
-
-    public Task<Over> UpdateOverAsync(string id, Over over)
+    public async Task<Over> UpdateOverAsync(string id, Over over)
     {
         var getOver = _overRepository.GetOver(id);
-        if (getOver == null)
-        {
-            throw new Exception("Over not found");
-        }
+        over.MatchId = getOver.Result.MatchId;
+        // if (getOver == null)
+        // {
+        //     throw new Exception("Over not found");
+        // }
 
-        _overRepository.UpdateOver(_mapper.Map<ScorecardMgm.Common.Entities.Over>(over));
+        await _overRepository.UpdateOver(_mapper.Map<ScorecardMgm.Common.Entities.Over>(over));
 
-        return Task.FromResult(over);
+        return over;
+        // return _mapper.Map<Over>(updatedOver);
     }
 }

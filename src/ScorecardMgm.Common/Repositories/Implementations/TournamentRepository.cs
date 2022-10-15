@@ -27,13 +27,24 @@ namespace ScorecardMgm.Common.Repositories.Implementations
 
         public async Task DeleteTournament(string tournamentId)
         {
-            if (!TournamentExists(tournamentId))
+            // if (!TournamentExists(tournamentId))
+            // {
+            //     throw new ArgumentException(nameof(tournamentId) + " tournament doesn't exist");
+            // }
+            try
             {
-                throw new ArgumentException(nameof(tournamentId) + " tournament doesn't exist");
+                var tournament = await _context.Tournaments.FindAsync(tournamentId);
+                if (tournament == null)
+                {
+                    throw new KeyNotFoundException("Tournament not found");
+                }
+                _context.Tournaments.Remove(tournament);
+                await _context.SaveChangesAsync();
             }
-            var tournament = await _context.Tournaments.FindAsync(tournamentId);
-            _context.Tournaments.Remove(tournament);
-            await _context.SaveChangesAsync();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<List<Tournament>> GetAllTournaments(TournamentFilter tournamentFilter)
@@ -58,10 +69,10 @@ namespace ScorecardMgm.Common.Repositories.Implementations
 
         public async Task<Tournament> GetTournament(string tournamentId)
         {
-            if (!TournamentExists(tournamentId))
-            {
-                throw new ArgumentException(nameof(tournamentId) + " Tournament doesn't exist");
-            }
+            // if (!TournamentExists(tournamentId))
+            // {
+            //     throw new ArgumentException(nameof(tournamentId) + " Tournament doesn't exist");
+            // }
             var tournament = await _context.Tournaments.FindAsync(tournamentId);
             return tournament;
         }
@@ -72,11 +83,13 @@ namespace ScorecardMgm.Common.Repositories.Implementations
             {
                 throw new ArgumentNullException(nameof(tournament) + " is null");
             }
-            if (!TournamentExists(tournament.TournamentId))
-            {
-                throw new ArgumentException(nameof(tournament.TournamentId) + " tournament doesn't exist");
-            }
-            _context.Tournaments.Update(tournament);
+            // if (!TournamentExists(tournament.TournamentId))
+            // {
+            //     throw new ArgumentException(nameof(tournament.TournamentId) + " tournament doesn't exist");
+            // }
+            var tournamentFromDB = await GetTournament(tournament.TournamentId);
+            _context.Entry(tournamentFromDB).CurrentValues.SetValues(tournament);
+            // _context.Tournaments.Update(tournament);
             await _context.SaveChangesAsync();
         }
 

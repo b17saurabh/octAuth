@@ -23,39 +23,74 @@ public class TournamentController : ControllerBase
     [HttpGet(Routes.Tournament.GetAll)]
     public async Task<IActionResult> GetAll([FromQuery] TournamentFilter filter)
     {
-        var tournaments = await _tournamentService.GetAllTournamentsAsync(filter);
-        return Ok(tournaments);
+        try
+        {
+            var tournaments = await _tournamentService.GetAllTournamentsAsync(filter);
+            return Ok(tournaments);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet(Routes.Tournament.Get)]
     public async Task<IActionResult> Get([FromRoute] string tournamentId)
     {
-        var tournament = await _tournamentService.GetTournamentAsync(tournamentId);
-        return Ok(tournament);
+        try
+        {
+            var tournament = await _tournamentService.GetTournamentAsync(tournamentId);
+            return Ok(tournament);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
     }
 
     [HttpPost(Routes.Tournament.Create)]
     public async Task<IActionResult> Create([FromBody] Tournament tournamentRequest)
     {
-        var tournament = _mapper.Map<Models.Tournament>(tournamentRequest);
-        tournament.TournamentId = Guid.NewGuid().ToString();
-        await _tournamentService.AddTournamentAsync(tournament);
-        return Ok(tournament);
+        try
+        {
+            var tournament = _mapper.Map<Models.Tournament>(tournamentRequest);
+            tournament.TournamentId = Guid.NewGuid().ToString();
+            await _tournamentService.AddTournamentAsync(tournament);
+            return Ok(tournament);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPut(Routes.Tournament.Update)]
     public async Task<IActionResult> Update([FromRoute] string tournamentId, [FromBody] Tournament tournamentRequest)
     {
-        var tournament = _mapper.Map<Models.Tournament>(tournamentRequest);
-        tournament.TournamentId = tournamentId;
-        await _tournamentService.UpdateTournamentAsync(tournament);
-        return Ok(tournament);
+        try
+        {
+            var tournament = _mapper.Map<Models.Tournament>(tournamentRequest);
+            tournament.TournamentId = tournamentId;
+            await _tournamentService.UpdateTournamentAsync(tournament);
+            return Ok(tournament);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete(Routes.Tournament.Delete)]
     public async Task<IActionResult> Delete([FromRoute] string tournamentId)
     {
-        await _tournamentService.DeleteTournamentAsync(tournamentId);
-        return NoContent();
+        try
+        {
+            await _tournamentService.DeleteTournamentAsync(tournamentId);
+            return Ok(tournamentId);
+        }
+        catch
+        {
+            return NotFound();
+        }
     }
 }

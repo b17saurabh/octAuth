@@ -49,7 +49,7 @@ public class AuthServices : IAuthServices
         // }
         try
         {
-            var userFromRepo = await _userRepo.GetUserAsync(request.Email);
+            var userFromRepo = await _userRepo.GetUserFromDB(request.Email);
             if (userFromRepo != null)
             {
                 throw new Exception("User already exists");
@@ -64,7 +64,7 @@ public class AuthServices : IAuthServices
                 PasswordHash = PasswordHasher(request.Password).Result,
                 Role = 0
             };
-            _userRepo.Register(user);
+            await _userRepo.SaveToDb(user);
         }
         catch (Exception ex)
         {
@@ -80,20 +80,23 @@ public class AuthServices : IAuthServices
             // {
             //     throw new Exception("User not found");
             // }
-            var userFromRepo = _userRepo.GetUserAsync(request.Email);
+            var userFromRepo = await _userRepo.GetUserFromDB(request.Email);
             if (userFromRepo == null)
             {
                 throw new Exception("User already exists");
             }
-            string pass = "";
-            _userRepo.GetPasswordHash(request.Email, pass);
+            string pass = _userRepo.GetUserFromDB(request.Email).Result.PasswordHash;
+            // _userRepo.GetPasswordHash(request.Email, pass);
             var HashPassword = BCrypt.Net.BCrypt.Verify(request.Password, pass);
 
             if (!HashPassword)
                 throw new Exception("Invalid Password");
-            var user = _userRepo.Login(request.Email, request.Password);
-            var token = GenerateToken();
-            return token;
+            // var user = _userRepo.Login(request.Email, request.Password);
+            else
+            {
+                var token = GenerateToken();
+                return token;
+            }
         }
         catch (Exception ex)
         {

@@ -23,39 +23,75 @@ public class MatchController : ControllerBase
     [HttpGet(Routes.Match.GetAll)]
     public async Task<IActionResult> GetAll([FromQuery] MatchFilter filter)
     {
-        var matches = await _matchService.GetAllMatchesAsync(filter);
-        return Ok(matches);
+        try
+        {
+            var matches = await _matchService.GetAllMatchesAsync(filter);
+            return Ok(matches);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet(Routes.Match.Get)]
     public async Task<IActionResult> Get([FromRoute] string matchId)
     {
-        var match = await _matchService.GetMatchAsync(matchId);
-        return Ok(match);
+        try
+        {
+            var match = await _matchService.GetMatchAsync(matchId);
+            return Ok(match);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPost(Routes.Match.Create)]
     public async Task<IActionResult> Create([FromBody] Match matchRequest, [FromRoute] string tournamentId)
     {
-        var match = _mapper.Map<Models.Match>(matchRequest);
-        match.MatchId = Guid.NewGuid().ToString();
-        await _matchService.AddMatchAsync(tournamentId, match);
-        return Ok(match);
+        try
+        {
+            var match = _mapper.Map<Models.Match>(matchRequest);
+            match.MatchId = Guid.NewGuid().ToString();
+            match.TournamentId = tournamentId;
+            await _matchService.AddMatchAsync(tournamentId, match);
+            return Ok(match);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPut(Routes.Match.Update)]
     public async Task<IActionResult> Update([FromRoute] string matchId, [FromBody] Match matchRequest)
     {
-        var match = _mapper.Map<Models.Match>(matchRequest);
-        match.MatchId = matchId;
-        await _matchService.UpdateMatchAsync(match);
-        return Ok(match);
+        try
+        {
+            var match = _mapper.Map<Models.Match>(matchRequest);
+            match.MatchId = matchId;
+            await _matchService.UpdateMatchAsync(match);
+            return Ok(match);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete(Routes.Match.Delete)]
     public async Task<IActionResult> Delete([FromRoute] string matchId)
     {
-        await _matchService.DeleteMatchAsync(matchId);
-        return NoContent();
+        try
+        {
+            await _matchService.DeleteMatchAsync(matchId);
+            return Ok(matchId + " deleted");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

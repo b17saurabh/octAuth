@@ -2,6 +2,6 @@ namespace ScorecardMgm.API.Contracts;
 
 public class Over
 {
-    public int RunCount { get; set; }
-    public int WicketCount { get; set; }
+    public string RunCount { get; set; }
+    public string WicketCount { get; set; }
 }

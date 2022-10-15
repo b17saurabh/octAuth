@@ -11,6 +11,8 @@ public class Match
 
     public string WinnerTeamId { get; set; } = string.Empty;
 
+    // public virtual List<Over> Overs { get; set; }
+
 
     [ForeignKey(nameof(WinnerTeamId))]
     public virtual Team? Team { get; set; }

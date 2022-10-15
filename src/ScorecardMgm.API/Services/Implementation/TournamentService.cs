@@ -25,11 +25,11 @@ public class TournamentService : ITournamentService
 
     public async Task DeleteTournamentAsync(string tournamentId)
     {
-        var tournament = _tournamentRepository.GetTournament(tournamentId);
-        if (tournament == null)
-        {
-            throw new KeyNotFoundException("Tournament not found");
-        }
+        // var tournament = _tournamentRepository.GetTournament(tournamentId);
+        // if (tournament == null)
+        // {
+        //     throw new KeyNotFoundException("Tournament not found");
+        // }
         await _tournamentRepository.DeleteTournament(tournamentId);
     }
 
@@ -40,13 +40,13 @@ public class TournamentService : ITournamentService
 
     public async Task<Tournament> GetTournamentAsync(string tournamentId)
     {
-        var tournament = _tournamentRepository.GetTournament(tournamentId);
+        var tournament = await _tournamentRepository.GetTournament(tournamentId);
         if (tournament == null)
         {
             throw new KeyNotFoundException("Tournament not found");
         }
-        var tt = await Task.FromResult(_mapper.Map<Tournament>(tournament));
-        return tt;
+        return _mapper.Map<Tournament>(_mapper.Map<ScorecardMgm.Common.Entities.Tournament>(tournament));
+
     }
 
     public async Task UpdateTournamentAsync(Tournament tournament)
@@ -57,6 +57,7 @@ public class TournamentService : ITournamentService
             throw new KeyNotFoundException("Tournament not found");
         }
         await _tournamentRepository.UpdateTournament(_mapper.Map<ScorecardMgm.Common.Entities.Tournament>(tournament));
+
 
     }
 }

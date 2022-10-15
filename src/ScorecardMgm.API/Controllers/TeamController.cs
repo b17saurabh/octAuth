@@ -23,39 +23,74 @@ public class TeamController : ControllerBase
     [HttpGet(Routes.Team.GetAll)]
     public async Task<IActionResult> GetAll([FromQuery] TeamFilter filter)
     {
-        var teams = await _teamService.GetAllTeamsAsync(filter);
-        return Ok(teams);
+        try
+        {
+            var teams = await _teamService.GetAllTeamsAsync(filter);
+            return Ok(teams);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet(Routes.Team.Get)]
     public async Task<IActionResult> Get([FromRoute] string teamId)
     {
-        var team = await _teamService.GetTeamAsync(teamId);
-        return Ok(team);
+        try
+        {
+            var team = await _teamService.GetTeamAsync(teamId);
+            return Ok(team);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPost(Routes.Team.Create)]
     public async Task<IActionResult> Create([FromBody] Team teamRequest)
     {
-        var team = _mapper.Map<Models.Team>(teamRequest);
-        team.TeamId = Guid.NewGuid().ToString();
-        await _teamService.AddTeamAsync(team);
-        return Ok(team);
+        try
+        {
+            var team = _mapper.Map<Models.Team>(teamRequest);
+            team.TeamId = Guid.NewGuid().ToString();
+            await _teamService.AddTeamAsync(team);
+            return Ok(team);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPut(Routes.Team.Update)]
     public async Task<IActionResult> Update([FromRoute] string teamId, [FromBody] Team teamRequest)
     {
-        var team = _mapper.Map<Models.Team>(teamRequest);
-        team.TeamId = teamId;
-        await _teamService.UpdateTeamAsync(team);
-        return Ok(team);
+        try
+        {
+            var team = _mapper.Map<Models.Team>(teamRequest);
+            team.TeamId = teamId;
+            await _teamService.UpdateTeamAsync(team);
+            return Ok(team);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete(Routes.Team.Delete)]
     public async Task<IActionResult> Delete([FromRoute] string teamId)
     {
-        await _teamService.DeleteTeamAsync(teamId);
-        return NoContent();
+        try
+        {
+            await _teamService.DeleteTeamAsync(teamId);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

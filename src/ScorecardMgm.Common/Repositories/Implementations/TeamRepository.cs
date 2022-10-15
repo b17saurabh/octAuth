@@ -80,7 +80,9 @@ namespace ScorecardMgm.Common.Repositories.Implementations
             // {
             //     throw new ArgumentException(nameof(team.TeamId) + " team doesn't exist");
             // }
-            _context.Teams.Update(team);
+            //_context.Teams.Update(team);
+            var teamFromDB = await GetTeam(team.TeamId);
+            _context.Entry(teamFromDB).CurrentValues.SetValues(team);
             await _context.SaveChangesAsync();
         }
 

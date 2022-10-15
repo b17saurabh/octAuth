@@ -23,39 +23,74 @@ public class OverController : ControllerBase
     [HttpGet(Routes.Over.GetAll)]
     public async Task<IActionResult> GetAll([FromQuery] OverFilter filter)
     {
-        var overs = await _overService.GetAllOversAsync(filter);
-        return Ok(overs);
+        try
+        {
+            var overs = await _overService.GetAllOversAsync(filter);
+            return Ok(overs);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet(Routes.Over.Get)]
     public async Task<IActionResult> Get([FromRoute] string overId)
     {
-        var over = await _overService.GetOverAsync(overId);
-        return Ok(over);
+        try
+        {
+            var over = await _overService.GetOverAsync(overId);
+            return Ok(over);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPost(Routes.Over.Create)]
-    public async Task<IActionResult> Create([FromBody] Over overRequest, [FromRoute] string matchId, [FromRoute] string tournamentId)
+    public async Task<IActionResult> Create([FromBody] Over overRequest, [FromRoute] string matchId)
     {
-        var over = _mapper.Map<Models.Over>(overRequest);
-        over.OverId = Guid.NewGuid().ToString();
-        await _overService.AddOverAsync(tournamentId, matchId, over);
-        return Ok(over);
+        try
+        {
+            // var over = _mapper.Map<Models.Over>(overRequest);
+            var over = await _overService.AddOverAsync(matchId, _mapper.Map<Models.Over>(overRequest));
+            // over.OverId = Guid.NewGuid().ToString();
+            return Ok(over);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPut(Routes.Over.Update)]
     public async Task<IActionResult> Update([FromRoute] string overId, [FromBody] Over overRequest)
     {
-        var over = _mapper.Map<Models.Over>(overRequest);
-        over.OverId = overId;
-        await _overService.UpdateOverAsync(overId, over);
-        return Ok(over);
+        try
+        {
+            var overToBeUpdated = _mapper.Map<Models.Over>(overRequest);
+            overToBeUpdated.OverId = overId;
+            var over = await _overService.UpdateOverAsync(overId, overToBeUpdated);
+            return Ok(over);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete(Routes.Over.Delete)]
     public async Task<IActionResult> Delete([FromRoute] string overId)
     {
-        await _overService.DeleteOverAsync(overId);
-        return NoContent();
+        try
+        {
+            await _overService.DeleteOverAsync(overId);
+            return Ok(overId + " deleted");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

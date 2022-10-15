@@ -16,10 +16,11 @@ namespace ScorecardMgm.Common.Repositories.Implementations
 
         public async Task AddOver(Over over)
         {
-            if (over == null)
-            {
-                throw new ArgumentNullException(nameof(over) + " is null");
-            }
+            // if (over == null)
+            // {
+            //     throw new ArgumentNullException(nameof(over) + " is null");
+            // }
+            // over.OverId = Guid.NewGuid().ToString();
 
             await _context.Overs.AddAsync(over);
             await _context.SaveChangesAsync();
@@ -27,48 +28,87 @@ namespace ScorecardMgm.Common.Repositories.Implementations
 
         public async Task DeleteOver(string overId)
         {
-            if (!OverExists(overId))
-            {
-                throw new ArgumentException(nameof(overId) + " over doesn't exist");
-            }
+            // if (!OverExists(overId))
+            // {
+            //     throw new ArgumentException(nameof(overId) + " over doesn't exist");
+            // }
             var over = await _context.Overs.FindAsync(overId);
+            if (over == null)
+            {
+                throw new Exception("Over not found");
+            }
+            // var over = await _context.Overs.FindAsync(overId);
             _context.Overs.Remove(over);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Over>> GetAllOversFromAMatch(OverFilter overFilter)
+        // public async Task<List<Over>> GetAllOversFromAMatch(OverFilter overFilter)
+        // {
+        //     // if (!MatchExists(overFilter.MatchId))
+        //     // {
+        //     //     throw new ArgumentException(nameof(overFilter.MatchId) + " match id does not exist");
+        //     // }
+        //     var match = await _context.Matches.FindAsync(overFilter.MatchId);
+        //     if (match == null)
+        //     {
+        //         throw new ArgumentException(nameof(overFilter.MatchId) + " match id does not exist");
+        //     }
+        //     var overList = await _context.Overs.Where(c => c.MatchId == overFilter.MatchId).ToListAsync();
+        //     return overList;
+        // }
+        public async Task<List<Over>> GetAllOvers(OverFilter overFilter)
         {
-            if (!MatchExists(overFilter.MatchId))
-            {
-                throw new ArgumentException(nameof(overFilter.MatchId) + " match id does not exist");
-            }
-            var overList = await _context.Overs.Where(c => c.MatchId == overFilter.MatchId).ToListAsync();
+            IQueryable<Over> over = _context.Overs;
+            if (overFilter != null)
+                over = ApplyOverFilter(overFilter);
+            var overList = await over.ToListAsync();
             return overList;
+        }
+
+        private IQueryable<Over> ApplyOverFilter(OverFilter overFilter)
+        {
+            IQueryable<Over> over = _context.Overs;
+            if (overFilter != null)
+            {
+                if (string.IsNullOrEmpty(overFilter.MatchId) == false)
+                    over = over.Where(c => c.MatchId.Contains(overFilter.MatchId));
+            }
+            return over;
         }
 
 
         public async Task<Over> GetOver(string overId)
         {
-            if (!OverExists(overId))
-            {
-                throw new ArgumentException(nameof(overId) + " doestn't exist");
-            }
+            // if (!OverExists(overId))
+            // {
+            //     throw new ArgumentException(nameof(overId) + " doestn't exist");
+            // }
             var over = await _context.Overs.FindAsync(overId);
             return over;
         }
 
         public async Task UpdateOver(Over over)
         {
-            if (OverExists(over.OverId))
+            var _over = await _context.Overs.FindAsync(over.OverId);
+            if (_over == null)
             {
-                var _over = await _context.Overs.FindAsync(over.OverId);
-                _context.Entry(_over).CurrentValues.SetValues(over);
-                await _context.SaveChangesAsync();
+                throw new Exception("Over not found");
             }
-            else
-            {
-                throw new ArgumentException(nameof(over.MatchId) + " over does not exist");
-            }
+            // over.MatchId = _over.MatchId;
+            _context.Entry(_over).CurrentValues.SetValues(over);
+            await _context.SaveChangesAsync();
+            // return over;
+
+            // if (OverExists(over.OverId))
+            // {
+            //     var _over = await _context.Overs.FindAsync(over.OverId);
+            //     _context.Entry(_over).CurrentValues.SetValues(over);
+            //     await _context.SaveChangesAsync();
+            // }
+            // else
+            // {
+            //     throw new ArgumentException(nameof(over.MatchId) + " over does not exist");
+            // }
         }
 
         private bool OverExists(string overId)

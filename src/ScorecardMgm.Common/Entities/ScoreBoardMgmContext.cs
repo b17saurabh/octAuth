@@ -37,6 +37,11 @@ public class ScorecardMgmContext : DbContext
         modelBuilder.Entity<Over>()
             .HasKey(c => new { c.OverId });
 
+        // modelBuilder.Entity<Over>()
+        //     .HasOne(c => c.Match)
+        //     .WithMany(c => c.Overs)
+        //     .HasForeignKey(c => c.MatchId);
+
         modelBuilder.Entity<Player>()
             .HasKey(c => new { c.PlayerId });
 
