@@ -1,0 +1,829 @@
+{
+	"info": {
+		"_postman_id": "074d7505-2f42-4d88-9365-8a96a546eb4b",
+		"name": "scoreCard",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21019303"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"test2\",\r\n    \"email\" : \"test12@test.com\",\r\n    \"password\" : \"testpassword\",\r\n    \"confirmpassword\" : \"testpassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth}}/user/register",
+							"host": [
+								"{{auth}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"test12@test.com\",\r\n    \"password\" : \"testpassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth}}/auth/login",
+							"host": [
+								"{{auth}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7172/user/delete/c3034fdb-491a-4956-b9a8-fcc7467767d7",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7172",
+							"path": [
+								"user",
+								"delete",
+								"c3034fdb-491a-4956-b9a8-fcc7467767d7"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "c3034fdb-491a-4956-b9a8-fcc7467767d7",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjYxMDk4MzR9.I5FSOlOijzS5eGFGpbXr-2WMDpwt5f9k7VdSFZa5COWL7nvLStAm0VVdlTJbkNvFuYU3CjNmeLftawgwUQr44Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auth}}/user/getbyid/b9a28aaa-374d-451a-aebf-31a7078a918e",
+							"host": [
+								"{{auth}}"
+							],
+							"path": [
+								"user",
+								"getbyid",
+								"b9a28aaa-374d-451a-aebf-31a7078a918e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjYxMTAxMjZ9.ieNmfdqXuR4wpGpNN6EaXVh9kzmfIvKGRD_mktExZCallr2mO1fiEkNRGgA2oaDuLUGC6a9ftg5JSsbuvR-8NQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{auth}}/user/getAll",
+							"host": [
+								"{{auth}}"
+							],
+							"path": [
+								"user",
+								"getAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjYxMTAxMjZ9.ieNmfdqXuR4wpGpNN6EaXVh9kzmfIvKGRD_mktExZCallr2mO1fiEkNRGgA2oaDuLUGC6a9ftg5JSsbuvR-8NQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"test2update\",\r\n    \"email\" : \"test1@test.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth}}/user/update/b9a28aaa-374d-451a-aebf-31a7078a918e",
+							"host": [
+								"{{auth}}"
+							],
+							"path": [
+								"user",
+								"update",
+								"b9a28aaa-374d-451a-aebf-31a7078a918e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ScoreBoardManagement",
+			"item": [
+				{
+					"name": "Team",
+					"item": [
+						{
+							"name": "AddTeam",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"teamName\" : \"CSK\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7205/team",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7205",
+									"path": [
+										"team"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllTeams",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7205/team",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7205",
+									"path": [
+										"team"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetTeamByID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7205/team/3e82cd21-4c60-45a1-9126-ddf0d7f57d84",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7205",
+									"path": [
+										"team",
+										"3e82cd21-4c60-45a1-9126-ddf0d7f57d84"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateTeam",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"teamName\" : \"Russia\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7205/team/df3230e3-e644-492b-9ef1-996bd4513726",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7205",
+									"path": [
+										"team",
+										"df3230e3-e644-492b-9ef1-996bd4513726"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteTeam",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:7205/team/3e82cd21-4c60-45a1-9126-ddf0d7f57d84",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7205",
+									"path": [
+										"team",
+										"3e82cd21-4c60-45a1-9126-ddf0d7f57d84"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Player",
+					"item": [
+						{
+							"name": "GetAllPlayers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/player",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"player"
+									],
+									"query": [
+										{
+											"key": "teamId",
+											"value": "429eec86-5f02-4271-a52d-4f87b75acb9b",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddPlayer",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"playerName\" : \"Kohli\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/player/429eec86-5f02-4271-a52d-4f87b75acb9b",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"player",
+										"429eec86-5f02-4271-a52d-4f87b75acb9b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetPlayerByID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/player/4a0ee62e-0048-4f54-9876-6ca797140416",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"player",
+										"4a0ee62e-0048-4f54-9876-6ca797140416"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdatePlayer",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"playerName\" : \"Tets11\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/player/33ff7d48-6983-4416-be81-f3ae9d89b6dc",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"player",
+										"33ff7d48-6983-4416-be81-f3ae9d89b6dc"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeletePlayer",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/player/4a0ee62e-0048-4f54-9876-6ca797140416",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"player",
+										"4a0ee62e-0048-4f54-9876-6ca797140416"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Over",
+					"item": [
+						{
+							"name": "CreateOver",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"runCount\" : \"2\",\r\n    \"wicketCount\" : \"0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/over/ce9da037-72ce-49fa-b7fb-0c8b332ae499",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"over",
+										"ce9da037-72ce-49fa-b7fb-0c8b332ae499"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetOver",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/over/e8ec15aa-bc0b-41a2-9e38-7fe1e33b6f6a",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"over",
+										"e8ec15aa-bc0b-41a2-9e38-7fe1e33b6f6a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllOvers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/over?matchId=ce9da037-72ce-49fa-b7fb-0c8b332ae499",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"over"
+									],
+									"query": [
+										{
+											"key": "matchId",
+											"value": "ce9da037-72ce-49fa-b7fb-0c8b332ae499"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/over/397bd985-993c-4d36-bd14-93731f0094b6",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"over",
+										"397bd985-993c-4d36-bd14-93731f0094b6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateOver",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"runCount\" : \"3\",\r\n    \"wicketCount\" : \"0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/over/06e96341-aa47-47b0-b3cc-28ea9a99399c",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"over",
+										"06e96341-aa47-47b0-b3cc-28ea9a99399c"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Match",
+					"item": [
+						{
+							"name": "GetMatchByID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/match/ce9da037-72ce-49fa-b7fb-0c8b332ae499",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"match",
+										"ce9da037-72ce-49fa-b7fb-0c8b332ae499"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateMatch",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"matchName\" : \"20-20\",\r\n    \"winnerTeamID\" : \"277bea0d-57fa-4b6f-876e-0f11ea8472f9\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/match/4974ec80-26af-40fc-b6ea-31a38f97e087",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"match",
+										"4974ec80-26af-40fc-b6ea-31a38f97e087"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllMatches",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/match",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"match"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteMatch",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/match/f5634031-731b-401e-b36d-23c1731f1477",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"match",
+										"f5634031-731b-401e-b36d-23c1731f1477"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateMatch",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"matchName\" : \"20-20 test update\",\r\n    \"winnerTeamID\" : \"277bea0d-57fa-4b6f-876e-0f11ea8472f9\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/match/ce9da037-72ce-49fa-b7fb-0c8b332ae499",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"match",
+										"ce9da037-72ce-49fa-b7fb-0c8b332ae499"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tournament",
+					"item": [
+						{
+							"name": "AddTournament",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tournamentName\" : \"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/tournament",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"tournament"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteTournament",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/tournament/6f564998-da91-4346-92e4-08bd93f1a5dc",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"tournament",
+										"6f564998-da91-4346-92e4-08bd93f1a5dc"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllTournaments",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjYxMTAxMjZ9.ieNmfdqXuR4wpGpNN6EaXVh9kzmfIvKGRD_mktExZCallr2mO1fiEkNRGgA2oaDuLUGC6a9ftg5JSsbuvR-8NQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/tournament",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"tournament"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetTournamentByID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{endpoint}}/tournament/4974ec80-26af-40fc-b6ea-31a38f97e087",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"tournament",
+										"4974ec80-26af-40fc-b6ea-31a38f97e087"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateTournament",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tournamentName\" : \"testEdited\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{endpoint}}/tournament/8e0e0ce8-8673-4ade-8b8f-2c40215211b9",
+									"host": [
+										"{{endpoint}}"
+									],
+									"path": [
+										"tournament",
+										"8e0e0ce8-8673-4ade-8b8f-2c40215211b9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "endpoint",
+			"value": "https://localhost:7205",
+			"type": "string"
+		},
+		{
+			"key": "auth",
+			"value": "https://localhost:7172",
+			"type": "string"
+		}
+	]
+}

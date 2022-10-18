@@ -2,12 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using FluentValidation.AspNetCore;
 using ScorecardMgm.Auth.Validator;
-using ScorecardMgm.Auth.Service.Implementation;
-using ScorecardMgm.Auth.Service.Interface;
+using ScorecardMgm.Auth.Services.Implementation;
+using ScorecardMgm.Auth.Services.Interface;
+using ScorecardMgm.Common.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,16 +18,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<IUserServices, UserServices>();
+// builder.Services.AddTransient<ScorecardMgm.Common.Repositories.Interfaces.IUserRepository, ScorecardMgm.Common.Repositories.Implementation.UserRepository>();
 builder.Services.AddTransient<IAuthServices, AuthServices>();
 builder.Services.AddTransient<ScorecardMgm.Common.Repositories.Interfaces.IUserRepository, ScorecardMgm.Common.Repositories.Implementation.UserRepository>();
 
 
-builder.Services.AddDbContext<ScorecardMgm.Common.Entities.ScorecardMgmContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("express"), action =>
-{
-    action.EnableRetryOnFailure();
-})
-);
+builder.Services.AddDbContext<ScorecardMgmContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("express")));
 
 
 

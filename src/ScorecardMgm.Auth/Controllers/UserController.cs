@@ -1,8 +1,9 @@
-using ScorecardMgm.Auth.Service.Interface;
+using ScorecardMgm.Auth.Services.Interface;
 
 using Microsoft.AspNetCore.Mvc;
 using ScorecardMgm.Auth.Contract;
 using ScorecardMgm.Auth.Routes;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ScorecardMgm.Auth.Controllers
 {
@@ -10,14 +11,15 @@ namespace ScorecardMgm.Auth.Controllers
 
     public class UserController : ControllerBase
     {
-        private readonly IAuthServices _userService;
+        private readonly IUserServices _userService;
 
-        public UserController(IAuthServices userService)
+        public UserController(IUserServices userService)
         {
             _userService = userService;
         }
 
         [HttpPost(apiRoutes.User.Register)]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(UserDto request)
         {
             try
@@ -31,12 +33,68 @@ namespace ScorecardMgm.Auth.Controllers
             }
         }
 
-        [HttpPost(apiRoutes.User.Login)]
-        public async Task<ActionResult<string>> Login(UserLoginDto request)
+
+
+        [HttpDelete(apiRoutes.User.DeleteUser)]
+        [Authorize]
+        public async Task<IActionResult> DeleteUser([FromRoute] string userId)
         {
-            var token = await _userService.Login(request);
-            return Ok(token);
+            try
+            {
+                await _userService.DeleteUser(userId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
+        [HttpGet(apiRoutes.User.GetUserById)]
+        [Authorize]
+        public async Task<IActionResult> GetUserById([FromRoute] string userId)
+        {
+            try
+            {
+                var user = await _userService.GetUserById(userId);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet(apiRoutes.User.GetAllUsers)]
+        [Authorize]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+                var users = await _userService.GetAllUsers();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut(apiRoutes.User.UpdateUser)]
+        [Authorize]
+        public async Task<IActionResult> UpdateUser([FromRoute] string userId, UserUpdate request)
+        {
+            try
+            {
+                await _userService.UpdateUser(userId, request);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
     }

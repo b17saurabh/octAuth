@@ -4,6 +4,7 @@ using ScorecardMgm.Common.Filters;
 using ScorecardMgm.API.APIroutes;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ScorecardMgm.API.Controllers;
 
@@ -21,6 +22,7 @@ public class TournamentController : ControllerBase
     }
 
     [HttpGet(Routes.Tournament.GetAll)]
+    [Authorize]
     public async Task<IActionResult> GetAll([FromQuery] TournamentFilter filter)
     {
         try

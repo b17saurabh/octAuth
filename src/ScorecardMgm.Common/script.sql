@@ -6,7 +6,7 @@ create table Users(
 id varchar(36) not null Primary key,
 Name varchar(16),
 Email varchar(25),
-PasswordHash varchar(50),
+PasswordHash varchar(200),
 role varchar(5)
 )
 

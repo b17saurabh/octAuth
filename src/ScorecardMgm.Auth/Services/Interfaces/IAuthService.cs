@@ -1,14 +1,13 @@
 
 
 using ScorecardMgm.Auth.Contract;
+using ScorecardMgm.Common.Entities;
 
-namespace ScorecardMgm.Auth.Service.Interface
+namespace ScorecardMgm.Auth.Services.Interface
 {
     public interface IAuthServices
     {
         Task<string> Login(UserLoginDto request);
-        Task Register(UserDto request);
-
 
     }
 }

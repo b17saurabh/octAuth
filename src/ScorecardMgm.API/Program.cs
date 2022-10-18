@@ -5,6 +5,9 @@ using ScorecardMgm.Common.Entities;
 using Microsoft.EntityFrameworkCore;
 using ScorecardMgm.API.Interfaces;
 using ScorecardMgm.API.Implementations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +47,19 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<ScorecardMgmContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("express")));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 
 var app = builder.Build();
 

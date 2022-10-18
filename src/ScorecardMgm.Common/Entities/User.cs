@@ -9,6 +9,6 @@ namespace ScorecardMgm.Common.Entities
         public string Email { get; set; }
         public string PasswordHash { get; set; }
 
-        public int Role { get; set; }
+        // public int Role { get; set; }
     }
 }

@@ -22,33 +22,76 @@ namespace ScorecardMgm.Common.Repositories.Implementation
 
         public async Task<User> GetUserFromDB(string email)
         {
+            // try
+            // {
+            // var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+
+
+            var userFromDB = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+
+            // if (user == null)
+            //     throw new Exception("User not found");
+            return userFromDB;
+            // }
+            // catch (Exception ex)
+            // {
+            //     throw new Exception(ex.Message);
+            // }
+
+        }
+
+        public async Task<User> GetUserById(string userId)
+        {
+            User user = await _context.Users.FindAsync(userId);
+            return user;
+        }
+
+        public async Task SaveToDb(User user)
+        {
             try
             {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+                await _context.Users.AddAsync(user);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
-                if (user == null)
-                    throw new Exception("User not found");
+        public async Task<User> DeleteUser(User user)
+        {
+            try
+            {
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
                 return user;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-
         }
 
-        // public async Task<User> GetUserAsync(string email)
-        // {
-        //     var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
-        //     return user;
-        // }
-
-        public async Task SaveToDb(User user)
+        public async Task UpdateUser(User user)
         {
+            var userFromDB = await GetUserById(user.id);
+            user.PasswordHash = userFromDB.PasswordHash;
 
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Entry(userFromDB).CurrentValues.SetValues(user);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
+        public async Task<List<User>> GetAllUsers()
+        {
+            return await _context.Users.ToListAsync();
         }
 
         // public bool UserExists(string email)

@@ -53,6 +53,7 @@ public class ScorecardMgmContext : DbContext
 
         modelBuilder.Entity<User>()
             .HasKey(c => new { c.id });
+        // .HasUniqueIndex(c => c.Email);
 
         base.OnModelCreating(modelBuilder);
     }
