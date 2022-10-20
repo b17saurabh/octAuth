@@ -76,6 +76,20 @@ public class AuthServices : IAuthServices
         }
     }
 
+    public async Task<bool> ValidateToken(string token)
+    {
+        try
+        {
+            var secret = _configuration.GetSection("AppSettings:Token").Value;
+            var result = Helpers.HelperMethods.ValidateToken(token, secret);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+
 
 
 

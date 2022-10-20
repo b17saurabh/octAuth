@@ -67,3 +67,4 @@ C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.API\obj\Debug\ne
 C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.API\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.API\bin\Debug\net6.0\Newtonsoft.Json.dll

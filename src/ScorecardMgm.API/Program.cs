@@ -5,9 +5,8 @@ using ScorecardMgm.Common.Entities;
 using Microsoft.EntityFrameworkCore;
 using ScorecardMgm.API.Interfaces;
 using ScorecardMgm.API.Implementations;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using ScorecardMgm.API.Middlewares;
+using ScorecardMgm.API.Models.Response;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +16,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<Endpoints>(builder.Configuration.GetSection("Endpoints"));
 
 builder.Services.AddTransient<IOverService, OverService>();
 builder.Services.AddTransient<ScorecardMgm.Common.Repositories.Interfaces.IOverRepository, ScorecardMgm.Common.Repositories.Implementations.OverRepository>();
@@ -48,18 +49,18 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<ScorecardMgmContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("express")));
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
-                .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
-            ValidateIssuer = false,
-            ValidateAudience = false
-        };
-    });
+// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//     .AddJwtBearer(options =>
+//     {
+//         options.TokenValidationParameters = new TokenValidationParameters
+//         {
+//             ValidateIssuerSigningKey = true,
+//             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8
+//                 .GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
+//             ValidateIssuer = false,
+//             ValidateAudience = false
+//         };
+//     });
 
 var app = builder.Build();
 
@@ -71,6 +72,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
+app.UseMiddleware<TokenValidationMiddleware>();
 
 app.UseAuthentication();
 

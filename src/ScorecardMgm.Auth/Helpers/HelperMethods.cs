@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -25,6 +26,21 @@ public static class HelperMethods
 
         return $"Token : {jwt} ";
     }
+    public static bool ValidateToken(string token, string secret)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secret));
+        tokenHandler.ValidateToken(token, new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key,
+            ValidateIssuer = false,
+            ValidateAudience = false
+        }, out SecurityToken validatedToken);
+        var jwtToken = (JwtSecurityToken)validatedToken;
+        // var userId = jwtToken.Claims.First(x => x.Type == "unique_name").Value;
+        return true;
+    }
 
     public static async Task<string> PasswordHasher(string password)
     {
@@ -35,5 +51,6 @@ public static class HelperMethods
     {
         return BCrypt.Net.BCrypt.Verify(password, hash);
     }
+
 
 }

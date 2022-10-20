@@ -53,5 +53,10 @@ namespace ScorecardMgm.API.APIroutes
             public const string Create = Base;
             public const string GetAll = Base;
         }
+
+        public static class AuthApi
+        {
+            public const string Validate = "validate";
+        }
     }
 }

@@ -17,6 +17,7 @@ public class apiRoutes
     {
         public const string Base = "auth";
         public const string Login = Base + "/login";
+        public const string ValidateToken = Base + "/validate";
     }
 }
 
