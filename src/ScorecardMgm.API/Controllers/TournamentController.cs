@@ -22,7 +22,7 @@ public class TournamentController : ControllerBase
     }
 
     [HttpGet(Routes.Tournament.GetAll)]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> GetAll([FromQuery] TournamentFilter filter)
     {
         try

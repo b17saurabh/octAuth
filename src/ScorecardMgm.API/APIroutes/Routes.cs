@@ -56,7 +56,7 @@ namespace ScorecardMgm.API.APIroutes
 
         public static class AuthApi
         {
-            public const string Validate = "validate";
+            public const string Validate = "auth/validate";
         }
     }
 }

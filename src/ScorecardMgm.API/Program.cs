@@ -73,8 +73,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseMiddleware<TokenValidationMiddleware>();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseAuthentication();
 

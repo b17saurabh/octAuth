@@ -24,7 +24,7 @@ public static class HelperMethods
 
         var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-        return $"Token : {jwt} ";
+        return jwt;
     }
     public static bool ValidateToken(string token, string secret)
     {

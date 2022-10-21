@@ -28,18 +28,30 @@ public class TokenValidationMiddleware
         {
             await Unauthorized(httpContext);
         }
-
-        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Split(" ").Last());
-        var result = await _client.GetAsync(AuthApi.Validate);
-
-        if (result.IsSuccessStatusCode)
-        {
-            await _next(httpContext);
-        }
         else
         {
-            await Unauthorized(httpContext);
+            var response = await _client.GetAsync($"{_endpoints.Auth}{AuthApi.Validate}?token={token}");
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                await _next(httpContext);
+            }
+            else
+            {
+                await Unauthorized(httpContext);
+            }
         }
+
+        // _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Split(" ").Last());
+        // var result = await _client.GetAsync(AuthApi.Validate);
+
+        // if (result.IsSuccessStatusCode)
+        // {
+        //     await _next(httpContext);
+        // }
+        // else
+        // {
+        //     await Unauthorized(httpContext);
+        // }
 
         //call auth server to validate token
 

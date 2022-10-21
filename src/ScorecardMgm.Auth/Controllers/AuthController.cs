@@ -1,5 +1,7 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Newtonsoft.Json;
 using ScorecardMgm.Auth.Contract;
 using ScorecardMgm.Auth.Routes;
 using ScorecardMgm.Auth.Services.Interface;
@@ -39,6 +41,11 @@ public class AuthController : ControllerBase
         {
             var token = await _authService.Login(request);
             return Ok(token);
+            // context.Response.ContentType = "application/json";
+            // context.Response.StatusCode = (int)HttpStatusCode.OK;
+
+            // return Ok(context.Response.WriteAsync(JsonConvert.SerializeObject(new { token = token })));
+
         }
         catch (Exception ex)
         {
@@ -47,7 +54,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet(apiRoutes.Auth.ValidateToken)]
-    public async Task<IActionResult> ValidateToken(string token)
+    public async Task<IActionResult> ValidateToken()
     {
         try
         {

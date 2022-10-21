@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "RKjK4lasQGQJndSz9gaK9vuNwlT1HspNgAHQPhkk2oumoIb8uQm7nwO+XcRuNw7zB5b9fW9jmNfkrUcaVu4yrw==",
+  "dgSpecHash": "NmuEOWS9hZ3TnPGUsbva5ZZksd/s9SRXUSra3OMdtPpFj+n3rY6XJZEyehH40jTZC2HEguHwsbvJlKyw6X9bZw==",
   "success": true,
   "projectFilePath": "C:\\Users\\saura\\OneDrive\\Desktop\\dotnet\\octAuth\\src\\ScorecardMgm.Auth\\ScorecardMgm.Auth.csproj",
   "expectedPackageFiles": [
@@ -37,6 +37,7 @@
     "C:\\Users\\saura\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\saura\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\saura\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\saura\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\saura\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\saura\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\saura\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",

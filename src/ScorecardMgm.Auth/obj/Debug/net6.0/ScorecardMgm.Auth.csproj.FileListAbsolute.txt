@@ -65,3 +65,4 @@ C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Auth\bin\Debug\n
 C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Auth\bin\Debug\net6.0\ScorecardMgm.Common.dll
 C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Auth\bin\Debug\net6.0\ScorecardMgm.Common.pdb
 C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Auth\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\saura\OneDrive\Desktop\dotnet\octAuth\src\ScorecardMgm.Auth\bin\Debug\net6.0\Newtonsoft.Json.dll

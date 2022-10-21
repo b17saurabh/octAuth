@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using ScorecardMgm.Auth.Contract;
+using ScorecardMgm.Auth.Models;
 using ScorecardMgm.Auth.Services.Interface;
 using ScorecardMgm.Common.Entities;
 using ScorecardMgm.Common.Repositories.Interfaces;
@@ -43,7 +44,7 @@ public class AuthServices : IAuthServices
 
 
 
-    public async Task<string> Login(UserLoginDto request)
+    public async Task<Response> Login(UserLoginDto request)
     {
         try
         {
@@ -54,7 +55,7 @@ public class AuthServices : IAuthServices
             var userFromRepo = await _userRepo.GetUserFromDB(request.Email);
             if (userFromRepo == null)
             {
-                return "User not found";
+                throw new Exception("User not found");
             }
             string pass = _userRepo.GetUserFromDB(request.Email).Result.PasswordHash;
             // _userRepo.GetPasswordHash(request.Email, pass);
@@ -67,12 +68,14 @@ public class AuthServices : IAuthServices
             {
                 var secret = _configuration.GetSection("AppSettings:Token").Value;
                 var token = Helpers.HelperMethods.GenerateToken(secret);
-                return token;
+                var res = new Response(token, request.Email);
+
+                return res;
             }
         }
         catch (Exception ex)
         {
-            return ex.Message;
+            throw ex;
         }
     }
 
